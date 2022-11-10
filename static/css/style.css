@@ -18,7 +18,7 @@
 }
 
 body {
-  background-image: url(background.png);
+  background-image: url("/static/css/background.png");
   z-index: 1;
   margin: 0;
   box-sizing: border-box;

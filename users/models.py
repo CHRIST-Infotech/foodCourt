@@ -14,6 +14,7 @@ class f_users(models.Model):
 
 class user_votes(models.Model):
     user_Id = models.CharField(max_length=100, blank=False, null=False)
+    dish_Id = models.CharField(max_length=100, blank=False, null=False)
     dish_Name = models.CharField(max_length=100, blank=False, null=False)
     v_Date = models.DateField()
     v_Time = models.TimeField()

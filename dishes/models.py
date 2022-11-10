@@ -24,6 +24,7 @@ class dish_votes(models.Model):
     dish_Id = models.AutoField(primary_key=True)
     d_Name = models.CharField(max_length=100, blank=False, null=False)
     v_Date = models.DateField()
+    d_Votes = models.IntegerField(max_length=10000, null=True)
 
     class Meta:
         db_table = 'dish_votes'

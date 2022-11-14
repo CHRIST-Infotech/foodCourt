@@ -52,6 +52,8 @@ from .forms import CreateUserForm
 # 		context = {'form':form}
 # 		return render(request, 'signup.html', context)
 
+
+
 def f_sign_up(request):
     if request.user.is_authenticated:
         return redirect('/dishes')
@@ -66,7 +68,7 @@ def f_sign_up(request):
                 #                           mobile_number=request.POST['nPhone'], user_id=user)
                 userdetails = f_users(user_Id=user, user_Email=user.email)
                 userdetails.save()
-                return redirect('/dishes')
+                return redirect('users:f_login')
             else:
                 context = {
                     'msg': 'Error in the inputs given, kindly make sure that you are using proper details to create user'
@@ -104,7 +106,7 @@ def f_login(request):
 				elif user.is_staff == 1:
 					return redirect('main:admin_dashboard')
 				else:
-					return redirect('seller:seller')
+					return redirect('dishes:leaderboard')
 			else:
 				print('Login is not success')
 				messages.info(request, 'Username OR password is incorrect')

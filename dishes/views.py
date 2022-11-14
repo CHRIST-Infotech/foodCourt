@@ -1,8 +1,11 @@
 from django.shortcuts import render
-
+from django.contrib.auth.decorators import login_required
+from datetime import date
 from django.contrib import messages
+from django.http import HttpResponse
 
 from .models import *
+from users.models import user_votes
 from foodcourt.settings import BASE_DIR
 # Create your views here.
 
@@ -11,18 +14,38 @@ def index(request):
     # login_status = request.session["login_status"]
     return render(request, 'index.html')
 
-
 def leaderboard(request):
     dish = dishes.objects.all()
     print("All dishes")
     print(dish)
     return render(request, 'leaderboard.html', {'dish': dish, 'BASE_DIR':BASE_DIR})
 
+enable = True
+
+def v_valid(request, dish_Id):
+    if date.today():
+        # u_vote = user_votes.objects.all()
+        user_email = request.session["user_email"]
+
+        u_vote = user_votes.objects.get(user_Id=user_email)
+        if u_vote:
+            enable = True
+        else:
+            enable = False
+
+@login_required(login_url='/login')
 def dish_details(request, dish_Id):
     dish = dishes.objects.get(dish_Id=dish_Id)
     user_email = request.session["user_email"]
+    print(user_email)
 
-    return render(request,'menu1..html', {'dish': dish, 'user_email':user_email, 'BASE_DIR':BASE_DIR})
+    vote = user_votes.objects.all()
+    print(len(vote))
+    # vote = user_votes.objects.get(user_Id=user_email)
+
+
+
+    return render(request,'menu1.html', {'dish': dish, 'user_email':user_email, 'enable':enable, 'BASE_DIR':BASE_DIR})
 
 
 

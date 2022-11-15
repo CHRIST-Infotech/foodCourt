@@ -58,11 +58,11 @@
                     <p class="card-text" id="ingredients_dish">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                         Voluptatum, ipsam
                         officiis.</p>
-                    <a href="#" class="noDecoration">
+                    <a href="" class="noDecoration">
                         <div class="text-center">
 
                             {% if enable %}
-                             <input type="submit" name="upload" class="btn btn-primary" value="Vote" />
+                             <input type="submit" name="upload" onclick="" id="button" class="btn btn-primary" value="Vote" />
 
                             {% else %}
                              <input type="submit" name="upload" class="btn btn-primary" value="Vote" disabled/>
@@ -125,13 +125,27 @@
                   {{dish.d_Ingredients}}
                 </span>
 
-                {% if enable %}
-                <input type="submit" name="upload" class="btn btn-primary" value="Vote" />
+<!-- <a href="#" class="noDecoration"> -->
+  <div class="text-center">
+    <form method="post">
+      {% csrf_token %}
+      {% if enable %}
+      <!-- <form method="post">
+        {% csrf_token %} -->
+       <button type="submit" name="upload" onclick="onCdisable()" id="button1" class="btn btn-primary" value="" > Vote </button>
+      <!-- </form> -->
+      {% else %}
+      <!-- <form method="post">
+        {% csrf_token %} -->
+       <button type="submit" name="upload" class="btn btn-primary" value="" disabled> We Received Your Vote </button>
+      <!-- </form> -->
+      {% endif %}
+    </form>
+      <!-- <button class="btn text-center noDecoration mb-5">
+          Vote Now</button> -->
+  </div>
 
-               {% else %}
-                <input type="submit" name="upload" class="btn btn-primary" value="We Received your vote" disabled/>
-
-               {% endif %}
+<!-- </a> -->
     
               </div>
 
@@ -153,6 +167,10 @@
           </div>
     </div>
 
+
+
+
+
     <!-------javascript bundle----->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
@@ -161,6 +179,14 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="{% static 'js/preloader.js' %}"></script>
+
+
+        <script>
+          function onCdisable() {
+  document.getElementById("button1").disabled = true;
+}
+        </script>
+
 
 </body>
 

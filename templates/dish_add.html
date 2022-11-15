@@ -15,10 +15,21 @@
     <div style="margin: 50px; padding: 10px; border: 2px solid orange; border-radius: 5px;">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="dName">Dish Name</label>
-                <input type="text" class="form-control" name="dName" id="dName" placeholder="Poha">
-              </div> <br>
+            <div class="row">
+              <div class="col-7">
+                <div class="form-group">
+                  <label for="dName">Dish Name</label>
+                  <input type="text" class="form-control" name="dName" id="dName" placeholder="Poha">
+                </div> <br>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <label for="dName">Dish Price</label>
+                  <input type="number" class="form-control" name="dPrice" id="dPrice" placeholder="">
+                </div> <br>
+              </div>
+            </div>
+
               <div class="form-group">
                 <label for="dDescription">Dish Description</label>
                 <textarea class="form-control" name="dDescription" id="dDescription" rows="3"></textarea>

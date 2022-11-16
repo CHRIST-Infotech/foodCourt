@@ -37,8 +37,56 @@
             </div></div>
             <div class="row"><div class="col-4"><h5 class="lb">Today's Top Dishes</h5></div></div>
             <hr style="height: 2px; color: orange; margin: 3px; width: 15vw;">
+            <div class="row pt-3" style="">
+                {% for dish in top_dishes %}
+                <div class="col mb-3">
+                    <a href="/dish_details/{{ dish.dish_Id }}" style="text-decoration: none; color: inherit;">
+                    <div class="card" style="width: 18rem;">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <img src="{{ BASIC_DIR }}/uploads/{{dish.d_Photo}}" alt="dish_img" style="width: 500px; height: 300px;"  class="img-fluid p-2">
+                        <div class="card-body">
+                          <div class="col">
+                            <div class="row"><h5 class="text-center" style=" white-space: nowrap "> <b>{{dish.d_Name}}</b></h5></div>
+                            <hr style="height: 2px; color: orange; margin: 3px;">
+                            <div class="row">
+                                <div class="col text-center">₹{{dish.d_Price}}</div>
+                                <div class="col">Votes: {{dish.d_Votes}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                </div>
+                
+                {% endfor %}
+            </div>
+
             <div class="row"><div class="col-4"><h5 class="lb">Tomorrow's Top Dishes</h5></div></div>
             <hr style="height: 2px; color: orange; margin: 3px; width: 15vw;">
+            <div class="row pt-3" style="">
+                {% for dish in top_dishes %}
+                <div class="col mb-3">
+                    <a href="/dish_details/{{ dish.dish_Id }}" style="text-decoration: none; color: inherit;">
+                    <div class="card" style="width: 18rem;">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <img src="{{ BASIC_DIR }}/uploads/{{dish.d_Photo}}" alt="dish_img" style="width: 500px; height: 300px;"  class="img-fluid p-2">
+                        <div class="card-body">
+                          <div class="col">
+                            <div class="row"><h5 class="text-center" style=" white-space: nowrap "> <b>{{dish.d_Name}}</b></h5></div>
+                            <hr style="height: 2px; color: orange; margin: 3px;">
+                            <div class="row">
+                                <div class="col text-center">₹{{dish.d_Price}}</div>
+                                <div class="col">Votes: {{dish.d_Votes}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                </div>
+                
+                {% endfor %}
+            </div>
+
             <div class="row"><div class="col-4"><h5 class="lb">All Dishes</h5></div></div>
             <hr style="height: 2px; color: orange; margin: 3px; width: 15vw;">
             <div class="row pt-3" style="">

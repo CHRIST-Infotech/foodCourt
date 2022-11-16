@@ -10,6 +10,9 @@ from users.models import user_votes
 from foodcourt.settings import BASE_DIR
 # Create your views here.
 
+
+
+
 def index(request):
     # request.session["login_status"] = False
     # login_status = request.session["login_status"]
@@ -19,10 +22,14 @@ def leaderboard(request):
     today = datetime.date.today()
     yesterday = today - datetime.timedelta(days = 1)
     tomorrow = today + datetime.timedelta(days = 1) 
+    top_dishes = dish_votes.objects.filter(v_Date=today).all().order_by('-d_Votes').values()
+    print("Length of Top Dishes", len(top_dishes))
+    # top_dishes1 = top_dishes.objects.all().order_by('d_Votes')
+    # print("Length of Top Dishes1", len(top_dishes1))
     dish = dishes.objects.all()
     print("All dishes")
     print(dish)
-    return render(request, 'dishes.html', {'dish': dish, 'tomorrow':tomorrow, 'BASE_DIR':BASE_DIR})
+    return render(request, 'dishes.html', {'dish': dish, 'tomorrow':tomorrow, 'top_dishes':top_dishes, 'BASE_DIR':BASE_DIR})
 
 
 def today_votes_dish():
@@ -66,7 +73,7 @@ def today_votes_dish():
 
 @login_required(login_url='/login')
 def dish_details(request, dish_Id):
-    today_votes_dish()
+    # today_votes_dish()
     dish = dishes.objects.get(dish_Id=dish_Id)
     # user_email = request.session["user_email"]
     user_email = request.user.email
@@ -78,10 +85,11 @@ def dish_details(request, dish_Id):
     d_vote = dish_votes()
     vd_list = []
     for v in dish_votes.objects.all():
-        vd_list.append(int(v.dish_Id))
+        if v.v_Date == date.today():
+            vd_list.append(int(v.dish_Id))
     vu_list = []
     for u in user_votes.objects.all():
-        vd_list.append(u.user_Id)
+        vu_list.append(u.user_Id)
         # print(u.user_Id)
     p_u_vote = user_votes.objects.all()
     print("Length of p votes", len(p_u_vote))
@@ -112,14 +120,25 @@ def dish_details(request, dish_Id):
 
         if dish_Id in vd_list:
             all_vote = dish_votes.objects.get(dish_Id=dish_Id)
-            d_vote.dish_Id = dish.dish_Id
-            d_vote.d_Name = dish.d_Name
-            d_vote.d_Votes = all_vote.d_Votes + 1
-            d_vote.v_Date = date.today()
-            d_vote.save()
+            # d_vote.dish_Id = dish.dish_Id
+            # d_vote.d_Name = dish.d_Name
+            # d_vote.d_Description = dish.d_Description
+            # d_vote.d_Ingredients = dish.d_Ingredients
+            # d_vote.d_Type = dish.d_Type
+            # d_vote.d_Price = dish.d_Price
+            # d_vote.d_Photo = dish.d_Photo
+            all_vote.d_Votes = all_vote.d_Votes + 1
+            # d_vote.v_Date = date.today()
+            all_vote.save()
+            print("Increased the dish vote")
         else:  #First Vote of a dish
             d_vote.dish_Id = dish.dish_Id
             d_vote.d_Name = dish.d_Name
+            d_vote.d_Description = dish.d_Description
+            d_vote.d_Ingredients = dish.d_Ingredients
+            d_vote.d_Type = dish.d_Type
+            d_vote.d_Price = dish.d_Price
+            d_vote.d_Photo = dish.d_Photo           
             d_vote.d_Votes = 1
             d_vote.v_Date = date.today()
             d_vote.save()
@@ -171,3 +190,96 @@ def dishAdd(request):
         dish_Data.save()
         messages.success(request, "Your Dish Added Successfully")
     return render(request, 'dish_add.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ######## Don't Touch this code ######### #
+
+
+# def datamig():
+#     dis="C:/Users/DELL/Downloads/dishes.csv"
+#     dis_v="C:/Users/DELL/Downloads/dish_votes.csv"
+#     your_djangoproject_home="C:/Users/DELL/Desktop/"
+#     import sys,os
+#     sys.path.append(your_djangoproject_home)
+#     os.environ['DJANGO_SETTINGS_MODULE'] ='foodcourt.settings'
+
+#     import csv
+#     dis1 = csv.reader(open(dis), delimiter=';', quotechar='"')
+
+#     for row in dis1:
+#         od = dishes()
+#         od.dish_Id = row[0]
+#         od.d_Name = row[1]
+#         od.d_Description = row[2]
+#         od.d_Ingredients = row[3]
+#         od.d_Photo = row[4]
+#         od.d_Type = row[5]
+#         od.d_Add_Date = row[6]
+#         od.d_Price = row[7]
+
+#     dataReader = csv.reader(open(dis_v), delimiter=';', quotechar='"')
+
+#     for row1 in dataReader:
+#         odv = dish_votes()
+#         odv.dish_Id = row1[0]
+#         odv.d_Name = row1[1]
+#         odv.v_Date = row1[2]
+#         odv.d_Votes = row1[3]
+#         odv.d_Description = row1[4]
+#         odv.d_Ingredients = row1[5]
+#         odv.d_Photo = row1[6]
+#         odv.d_Price = row1[7]
+#         odv.d_Type = row1[8]
+
+
+
+
+
+
+
+
+

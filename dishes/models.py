@@ -23,9 +23,14 @@ class dishes(models.Model):
 
 class dish_votes(models.Model):
     dish_Id = models.AutoField(primary_key=True)
-    d_Name = models.CharField(max_length=100, blank=False, null=False)
+    d_Name = models.CharField(max_length=100, blank=False)
+    d_Description = models.CharField(max_length=1000, blank=False)
+    d_Ingredients = models.CharField(max_length=500, blank=False)
+    d_Price = models.IntegerField(max_length=500, blank=True)
+    d_Photo = models.FileField(upload_to=user_directory_path, verbose_name="")
+    d_Type = models.CharField(max_length=10, blank=False)
     v_Date = models.DateField(auto_now_add=True)
-    d_Votes = models.IntegerField(max_length=10000, null=False, default=0)
+    d_Votes = models.IntegerField(max_length=10000, default=0)
 
     class Meta:
         db_table = 'dish_votes'

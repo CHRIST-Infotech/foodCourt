@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import date
+import datetime
 from django.contrib import messages
 from django.http import HttpResponse
 
@@ -15,10 +16,40 @@ def index(request):
     return render(request, 'index.html')
 
 def leaderboard(request):
+    today = datetime.date.today()
+    yesterday = today - datetime.timedelta(days = 1)
+    tomorrow = today + datetime.timedelta(days = 1) 
     dish = dishes.objects.all()
     print("All dishes")
     print(dish)
-    return render(request, 'leaderboard.html', {'dish': dish, 'BASE_DIR':BASE_DIR})
+    return render(request, 'dishes.html', {'dish': dish, 'tomorrow':tomorrow, 'BASE_DIR':BASE_DIR})
+
+
+def today_votes_dish():
+    today = datetime.date.today()
+    yesterday = today - datetime.timedelta(days = 1)
+    tomorrow = today + datetime.timedelta(days = 1) 
+    print('Yesterday : ',yesterday)
+    print('Today : ',today)
+    print('Tomorrow : ',tomorrow)
+    dish_Ids = []
+    today_dish_votes = {}
+    for i in user_votes.objects.all():
+        if i.v_Date == date.today():
+            if int(i.dish_Id) not in dish_Ids:
+                dish_Ids.append(int(i.dish_Id))
+    
+    for di in dish_Ids:
+        dv = 0
+        for uv in user_votes.objects.all():
+            if uv.v_Date == date.today() and int(uv.dish_Id) == di:
+                dv+=1
+        today_dish_votes[di] = dv
+    print('Today Votes',today_dish_votes)
+    
+
+
+    return ''
 
 
 
@@ -35,8 +66,11 @@ def leaderboard(request):
 
 @login_required(login_url='/login')
 def dish_details(request, dish_Id):
+    today_votes_dish()
     dish = dishes.objects.get(dish_Id=dish_Id)
-    user_email = request.session["user_email"]
+    # user_email = request.session["user_email"]
+    user_email = request.user.email
+    print('Current User', user_email)
     print(user_email)
     # v_valid(request, dish_Id)
     enable = True
@@ -48,18 +82,19 @@ def dish_details(request, dish_Id):
     vu_list = []
     for u in user_votes.objects.all():
         vd_list.append(u.user_Id)
-        print(u.user_Id)
+        # print(u.user_Id)
     p_u_vote = user_votes.objects.all()
     print("Length of p votes", len(p_u_vote))
     print("Dhis ID", dish_Id, type(dish_Id))
     for i in p_u_vote:
         # print(type(i.dish_Id))
         if int(i.dish_Id) == dish_Id and i.v_Date == date.today():
-            print(i.v_Date)
-            enable = False
-            print(user_email)
-            print(i.user_Id)
+            # print(i.v_Date)
+            # enable = False
+            # print(user_email)
+            # print(i.user_Id)
             if i.user_Id == user_email:
+                enable = False
                 print(i.user_Id)
 
 
@@ -70,7 +105,7 @@ def dish_details(request, dish_Id):
 
 
     if request.method == 'POST':
-        u_vote.user_Id = request.session["user_email"]
+        u_vote.user_Id = request.user.email
         u_vote.dish_Id = dish.dish_Id
         u_vote.dish_Name = dish.d_Name
         u_vote.save()
@@ -91,6 +126,7 @@ def dish_details(request, dish_Id):
         print("We Counted Your Vote")
         messages.success(request, "We Counted your Vote!")
         # enable = False
+        return redirect('dishes:dish_details',dish_Id)
 
 
 

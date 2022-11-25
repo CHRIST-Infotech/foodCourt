@@ -29,7 +29,7 @@ def leaderboard(request):
     dish = dishes.objects.all()
     print("All dishes")
     print(dish)
-    return render(request, 'dishes.html', {'dish': dish, 'tomorrow':tomorrow, 'top_dishes':top_dishes, 'BASE_DIR':BASE_DIR})
+    return render(request, 'leaderboard2.html', {'dish': dish, 'tomorrow':tomorrow, 'top_dishes':top_dishes, 'BASE_DIR':BASE_DIR})
 
 
 def today_votes_dish():
@@ -149,7 +149,7 @@ def dish_details(request, dish_Id):
 
 
 
-    return render(request,'menu1.html', {'dish': dish, 'user_email':user_email, 'enable':enable, 'BASE_DIR':BASE_DIR})
+    return render(request,'menu2.html', {'dish': dish, 'user_email':user_email, 'enable':enable, 'BASE_DIR':BASE_DIR})
 
 
 # def vote(request, dish_Id):

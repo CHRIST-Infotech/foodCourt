@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>FOOD COURT:{{number.no}},{{dish_name}}</title>
+    <link rel="icon" href="final32.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="{% static 'css/style2.css' %}"> -->
+
+    
+</head>
+
+
+<body>
+
+
+<div class="container" style="display: flex!important; flex-direction: row;
+flex-wrap: nowrap;
+align-content: center;
+justify-content: center;">
+
+<a href="/dishes"><button class="" id="back"><i class="fa-solid fa-2x fa-chevron-left"></i>
+</button></a>
+
+    <div class="card" style="width: 30rem;">
+        <img class="card-img-top" src="{{ BASIC_DIR }}/uploads/{{dish.d_Photo}}" alt="Card image cap">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-9"><h5 class="card-title">{{dish.d_Name}}</h5></div>
+                <div class="col-3">₹{{dish.d_Price}}</div>
+            </div>
+          
+            <div class="row">
+
+                <form method="post" class="" style="display: flex!important; flex-direction: row;
+                flex-wrap: nowrap;
+                align-content: center;
+                justify-content: center;">
+                    {% csrf_token %}
+                    {% if enable %}
+                    <!-- <form method="post">
+                      {% csrf_token %} -->
+                     <button type="submit" name="upload" onclick="" id="button1" class="btn btn-primary" value="" > Vote </button>
+                    <!-- </form> -->
+                    {% else %}
+                    <!-- <form method="post">
+                      {% csrf_token %} -->
+                     <button type="submit" name="upload" class="btn btn-primary" value="" disabled> We Received Your Vote </button>
+                    <!-- </form> -->
+                    {% endif %}
+                  </form>
+
+            </div>
+            <div class="row pt-2">
+                <!-- <h6 class="  text">Ingredients</h6> -->
+            </div>
+            <hr style="height: 2px; color: orange; margin: 3px;">
+             <p class="card-text">{{dish.d_Description}}</p>
+            <div class="row">
+                <h6 class="  text">Ingredients</h6>
+            </div>
+            <hr style="height: 2px; color: orange; margin: 3px;">
+             <p class="card-text">{{dish.d_Ingredients}}</p>
+        </div>
+      </div>
+
+
+</div>
+
+
+
+    <!-------javascript bundle----->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="{% static 'js/preloader.js' %}"></script>
+
+
+        <script>
+          function onCdisable() {
+  document.getElementById("button1").disabled = true;
+}
+        </script>
+
+
+</body>
+
+</html>

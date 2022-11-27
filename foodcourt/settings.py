@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'foodcourt.wsgi.application'
 DATABASES = {
     'default': {
 'ENGINE': 'django.db.backends.mysql',
-'NAME': 'food3',
+'NAME': 'ftest',
 'USER': 'root',
-'PASSWORD': 'root',
+'PASSWORD': 'Dell@mysql',
 'HOST': 'localhost',
 'PORT': '3306',
     }

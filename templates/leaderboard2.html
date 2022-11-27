@@ -264,6 +264,7 @@
             </ul>
         </div>
     </nav>
+    
     <div class="container">
         <div class="loader">
             <span></span>
@@ -369,7 +370,7 @@
 
                 <div class="d-flex flex-column  mt-5">
 
-                    {% for dish in dish %}
+                    {% for dish in top_dishes %}
                     <!------------4-->
                     <a href="/dish_details/{{ dish.dish_Id }}" style="text-decoration: none; color: inherit;">
                         <div class="card-2">
@@ -400,7 +401,7 @@
 
                                     <div class="h-100 d-flex justify-content-between align-items-center">
 
-                                        <h4 class="" style="white-space: nowrap;" id="votes">{{dish.d_Votes}}votes </h4>
+                                        <h4 class="" style="white-space: nowrap;" id="votes">{{dish.d_Votes}} votes </h4>
                                         <i class="mr-auto fa-solid fa-sharp fa-3x fa-angle-up ar-red  "
                                             style="margin-right: 3.5rem;"></i>
 

@@ -17,7 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+#STATIC_DIR = os.path.join(BASE_DIR, 'static')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-t0*64+tm4o0&xz(2l$z5ri&+z+2ebxdqqh8@@c7k6ebf8n247e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -136,11 +136,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATIC_ROOT = '/home/u1r60cp6vyvs/public_html/gstatic/'
+STATIC_ROOT = '/home/eihy0p9s0spe/public_html/static/'
 
 STATICFILES_DIRS = (
-	# '/home/u1r60cp6vyvs/greenvasa/static',
-    STATIC_DIR,
+    '/home/eihy0p9s0spe/foodcourt/static',
+    #STATIC_DIR,
 )
 
 MEDIA_URL = '/uploads/'
